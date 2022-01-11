@@ -44,9 +44,9 @@ import software.amazon.awssdk.services.ssm.model.GetParameterRequest;
 import software.amazon.awssdk.services.ssm.model.GetParameterResponse;
 
 /**
- * Lambda function.
+ * Lambda function: ListDragons.
  */
-public class App implements RequestHandler<APIGatewayProxyRequestEvent,
+public class ListDragons implements RequestHandler<APIGatewayProxyRequestEvent,
     APIGatewayProxyResponseEvent> {
 
   private static final SsmClient ssmClient = SsmClient.builder().build();
