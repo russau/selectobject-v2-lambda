@@ -44,6 +44,20 @@ aws lambda create-function --function-name AddDragon \
 aws lambda invoke --function-name AddDragon --payload fileb://newDragonPayload.json output.txt ; cat output.txt
 ```
 
+``` bash
+aws lambda create-function --function-name ValidateDragon \
+--runtime java11 \
+--role $ROLE_ARN_READWRITE \
+--handler com.mycompany.app.ValidateDragon::handleRequest \
+--timeout 90 \
+--memory-size 448 \
+--publish \
+--zip-file fileb://build/distributions/validateDragon.zip
+```
+
+``` bash
+aws lambda invoke --function-name ValidateDragon5 --payload fileb://newDragonPayload.json output.txt ; cat output.txt
+```
 
 
 Checkstyle stuff
