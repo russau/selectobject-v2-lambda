@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 import software.amazon.awssdk.core.async.SdkPublisher;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -74,11 +75,13 @@ public class ListDragons implements RequestHandler<APIGatewayProxyRequestEvent,
     for (SelectObjectContentEventStream events : testHandler.receivedEvents) {
       if (events instanceof DefaultRecords) {
         DefaultRecords defaultRecords = (DefaultRecords) events;
-        String payload = defaultRecords.payload().asString(StandardCharsets.UTF_8);
-
-        JsonElement e = JsonParser.parseString(payload);
-        JsonArray first = (JsonArray) e.getAsJsonObject().get("_1");
-        results.addAll(first);
+        String payload = defaultRecords.payload().asUtf8String();
+        Scanner scanner = new Scanner(payload);
+        while (scanner.hasNextLine()) {
+          JsonElement e = JsonParser.parseString(scanner.nextLine());
+          results.add(e);
+        }
+        scanner.close();
       }
     }
     return results.toString();
@@ -116,7 +119,7 @@ public class ListDragons implements RequestHandler<APIGatewayProxyRequestEvent,
       }
     }
 
-    return "select * from s3object s";
+    return "select * from s3object[*][*] s";
   }
 
   private static CompletableFuture<Void> queryS3(S3AsyncClient s3,
