@@ -15,8 +15,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -148,7 +146,6 @@ public class ListDragons implements RequestHandler<APIGatewayProxyRequestEvent,
   }
 
   private static APIGatewayProxyResponseEvent generateResponse(String dragons) {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
     Map<String, String> headers = new HashMap<String, String>();
     headers.put("access-control-allow-origin", "*");
