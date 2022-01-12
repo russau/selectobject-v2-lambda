@@ -5,12 +5,12 @@ repositories {
 }
 
 dependencies {
-  implementation platform('software.amazon.awssdk:bom:2.17.107')
+  // https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-project-gradle.html
+  implementation platform('software.amazon.awssdk:bom:2.17.109')
   implementation 'software.amazon.awssdk:s3'
   implementation 'software.amazon.awssdk:ssm'
   implementation 'com.google.code.gson:gson:2.8.9'
   implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
-  implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
 }
 
 task buildZip(type: Zip) {
